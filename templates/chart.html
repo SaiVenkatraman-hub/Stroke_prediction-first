@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Data Distribution</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 5%;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            color: white;
+        }
+
+        .navbar h1 {
+            font-size: 1.5rem;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .chart-wrapper {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #f5f6fa;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--secondary-color);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80') center/cover;
+            opacity: 0.1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: -50px auto 50px;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 0.5rem 0;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chart {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            min-height: 300px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Stroke Prediction</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/analysis">Analysis</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/chart" class="active">PieChart</a></li>
+        </ul>
+    </nav>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Health Data Analysis</h1>
+    </nav>
+    
+    <div class="chart-container">
+        <div class="chart-wrapper">
+            <h2>Smoking Status Distribution</h2>
+            <canvas id="smokingChart"></canvas>
+        </div>
+        <div class="chart-wrapper">
+            <h2>BMI Distribution</h2>
+            <canvas id="bmiChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Process the data for smoking status
+        const data = [
+            // Your dataset entries here
+            { smoking: 'formerly smoked', bmi: 36.6 },
+            { smoking: 'never smoked', bmi: null },
+            { smoking: 'never smoked', bmi: 32.5 },
+            { smoking: 'smokes', bmi: 34.4 },
+            { smoking: 'never smoked', bmi: 24.0 },
+            { smoking: 'formerly smoked', bmi: 29.0 },
+            { smoking: 'never smoked', bmi: 27.4 },
+            { smoking: 'never smoked', bmi: 22.8 },
+            { smoking: 'Unknown', bmi: null },
+            { smoking: 'Unknown', bmi: 24.2 },
+            // ... rest of your data
+        ];
+
+        // Count smoking status
+        const smokingStatus = data.reduce((acc, curr) => {
+            acc[curr.smoking] = (acc[curr.smoking] || 0) + 1;
+            return acc;
+        }, {});
+
+        // Count BMI categories
+        const bmiCategories = data.reduce((acc, curr) => {
+            if (curr.bmi) {
+                let category;
+                if (curr.bmi < 18.5) category = 'Underweight';
+                else if (curr.bmi < 25) category = 'Normal';
+                else if (curr.bmi < 30) category = 'Overweight';
+                else category = 'Obese';
+                
+                acc[category] = (acc[category] || 0) + 1;
+            }
+            return acc;
+        }, {});
+
+        // Colors for charts
+        const colors = {
+            smoking: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(255, 206, 86, 0.8)'
+            ],
+            bmi: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)'
+            ]
+        };
+
+        // Create Smoking Status Chart
+        new Chart(document.getElementById('smokingChart'), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(smokingStatus),
+                datasets: [{
+                    data: Object.values(smokingStatus),
+                    backgroundColor: colors.smoking,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+
+        // Create BMI Distribution Chart
+        new Chart(document.getElementById('bmiChart'), {
+            type: 'pie',
+            data: {
+                labels: Object.keys(bmiCategories),
+                datasets: [{
+                    data: Object.values(bmiCategories),
+                    backgroundColor: colors.bmi,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
